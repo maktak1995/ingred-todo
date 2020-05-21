@@ -8,14 +8,14 @@ type Todo = {
 };
 
 type Props = {
-  todo: Todo[];
+  todos: Todo[];
   updateTodo: (payload: UpdatePyload) => void;
   deleteTodo: (payload: DeletePyload) => void;
   addTodo: (payload: AddPyload) => void;
 }
 
 export const TodoView: React.FunctionComponent<Props> = ({
-  todo,
+  todos,
   updateTodo,
   deleteTodo,
   addTodo
@@ -24,7 +24,7 @@ export const TodoView: React.FunctionComponent<Props> = ({
   return (
     <div>
       <table>
-        { todo.map(item =>
+        { todos.map(item =>
           <td>
             {item} 
             <button onClick={() => deleteTodo(item.id)}>delete</button>

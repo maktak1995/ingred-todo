@@ -18,9 +18,9 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    add_todo: (content: string) => dispatch(add_todo(content)),
-    delete_todo: (id: number) => dispatch(delete_todo(id)),
-    update_todo: (todo: Todo) => dispatch(update_todo(todo)),
+    addTodo: (content: string) => dispatch(add_todo(content)),
+    deleteTodo: (id: number) => dispatch(delete_todo(id)),
+    updateTodo: (todo: Todo) => dispatch(update_todo(todo)),
   };
 };
 
