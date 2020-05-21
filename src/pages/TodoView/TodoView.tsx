@@ -24,12 +24,20 @@ export const TodoView: React.FunctionComponent<Props> = ({
   return (
     <div>
       <table>
-        { todos.map(item =>
-          <td>
-            {item} 
-            <button onClick={() => deleteTodo(item.id)}>delete</button>
-          </td>
-        )}
+        <tbody>
+          {todos.map(item =>
+            <tr key={item.id}>
+              <th>{item.finish && "✔"}</th>
+              <th>{item.content}</th>
+              <th>
+                <button onClick={() => deleteTodo(item.id)}>delete</button>
+              </th>
+              <th>
+                <button onClick={() => updateTodo({ ...item, finish: true })}>done</button>
+              </th>
+            </tr>
+          )}
+        </tbody>
       </table>
       <p>
         <input

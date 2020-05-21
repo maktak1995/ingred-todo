@@ -18,9 +18,10 @@ const initialState: TodoState = {
 let nextId = 0;
 
 const updateTodo = (todos: Todo[], payload: Todo) => {
-  const index = todos.findIndex((item: Todo) => item.id === payload.id);
-  todos[index] = payload;
-  return todos;
+  const newTodos = todos.slice();
+  const index = newTodos.findIndex((item: Todo) => item.id === payload.id);
+  newTodos[index] = payload;
+  return newTodos;
 }
 
 export const todoReducer = reducerWithInitialState(initialState)
