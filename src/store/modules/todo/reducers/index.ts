@@ -11,9 +11,7 @@ export type TodoState = {
   todos: Todo[];
 }
 
-const initialState: TodoState = {
-  todos: []
-};
+const initialState: TodoState = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') as string) : { todos: []};
 
 let nextId = 0;
 
