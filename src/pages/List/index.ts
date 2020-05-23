@@ -1,14 +1,8 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { TodoView as Component } from "./TodoView";
+import { List as Component } from "./List";
 import { add_todo, update_todo, delete_todo } from "../../store/modules/todo/actions";
 import { RootState } from "../../store";
-
-type Todo = {
-  id: number;
-  content: string;
-  finish: boolean;
-};
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -24,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export const TodoView = connect(
+export const ListView = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Component);

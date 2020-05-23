@@ -1,19 +1,13 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { add_todo, update_todo, delete_todo } from "../actions";
 
-type Todo = {
-  id: number;
-  content: string;
-  finish: boolean;
-};
-
 export type TodoState = {
+  nextId: number;
   todos: Todo[];
 }
 
-const initialState: TodoState = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') as string) : { todos: []};
+const initialState: TodoState = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') as string) : { nextId: 0, todos: []};
 
-let nextId = 0;
 
 const updateTodo = (todos: Todo[], payload: Todo) => {
   const newTodos = todos.slice();
@@ -25,8 +19,9 @@ const updateTodo = (todos: Todo[], payload: Todo) => {
 export const todoReducer = reducerWithInitialState(initialState)
   .case(add_todo, (state, payload) => ({
     ...state,
+    nextId: state.nextId + 1,
     todos: state.todos.concat({
-      id: nextId++,
+      id: state.nextId,
       content: payload,
       finish: false
     })
