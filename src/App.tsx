@@ -16,8 +16,8 @@ const App: React.FunctionComponent = () => {
         <Styled.Container>
           <Router>
             <Styled.TitleContainer>
-              <Link to="/">
-                <Typography component="h1" size="xxxl">
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Typography component="h1" size="xxxxl">
                   Ingred-TODO
                 </Typography>
               </Link>
