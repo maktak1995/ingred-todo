@@ -58,16 +58,19 @@ export const List: React.FunctionComponent<Props> = ({
             name: "Status",
             selector: (row) => row.finish.toString(),
             renderCell: (row) => row.finish && <Icon name="check" size="md" />,
+            width: "10%",
             sortable: true,
           },
           {
             name: "Title",
             selector: (row) => row.title,
+            width: "30%",
             sortable: true,
           },
           {
             name: "DeadLine",
             selector: (row) => moment(row.deadLine).format("YYYY/MM/DD"),
+            width: "20%",
             sortable: true,
           },
           {
@@ -91,6 +94,7 @@ export const List: React.FunctionComponent<Props> = ({
                 </ActionButton>
               </Flex>
             ),
+            width: "20%",
           },
         ]}
       />
