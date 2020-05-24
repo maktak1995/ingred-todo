@@ -1,7 +1,12 @@
 import React from "react";
 import * as Styled from "./styled";
+import { Flex, Button, Spacer } from "ingred-ui";
+import { useHistory } from "react-router-dom";
 import { UpdatePyload, DeletePyload } from "../../store/modules/todo/actions";
 import { RouteComponentProps } from "react-router-dom";
+import { DeleteModal } from "./internal/DeleteModal";
+import { Content } from "./internal/Content";
+import { Edit } from "./internal/Edit";
 
 type Props = {
   todos: Todo[];
@@ -15,27 +20,85 @@ export const Setting: React.FunctionComponent<Props> = ({
   updateTodo,
   deleteTodo,
 }) => {
-  const todo = todos.find((todo) => todo.id === parseInt(match.params.todoId));
+  const history = useHistory();
+  const todo = todos.find(
+    (todo) => todo.id === parseInt(match.params.todoId)
+  ) as Todo;
+  const [deleteModalId, setDeleteModalId] = React.useState<number | null>(null);
+  const [editMode, setEditMode] = React.useState<boolean>(false);
+
+  const [copiedTodo, setCopiedTodo] = React.useState<Todo>(
+    Object.assign({}, todo)
+  );
+
+  const onHandleDelete = (todoId: number) => {
+    deleteTodo(todoId);
+    history.push("/");
+  };
+  const onHandleChangeDeleteModalId = (id: number | null) => () =>
+    setDeleteModalId(id);
+
   return (
     <Styled.Container>
-      <table>
-        <tbody>
-          {todo && (
-            <tr key={todo.id}>
-              <th>{todo.finish && "✔"}</th>
-              <th>{todo.title}</th>
-              <th>
-                <button onClick={() => deleteTodo(todo.id)}>delete</button>
-              </th>
-              <th>
-                <button onClick={() => updateTodo({ ...todo, finish: true })}>
-                  done
-                </button>
-              </th>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      {editMode ? (
+        <Edit todo={todo} onChange={setCopiedTodo} />
+      ) : (
+        <Content todo={todo} />
+      )}
+      <Spacer pb={3} />
+      <Styled.ButtonContainer>
+        {editMode ? (
+          <Flex display="flex" alignItems="center">
+            <Button
+              inline
+              color="primary"
+              onClick={() => {
+                updateTodo(copiedTodo);
+                setEditMode(false);
+              }}
+            >
+              保存
+            </Button>
+            <Spacer pl={2} />
+            <Button
+              inline
+              color="cancel"
+              onClick={() => {
+                setEditMode(false);
+              }}
+            >
+              キャンセル
+            </Button>
+          </Flex>
+        ) : (
+          <Flex display="flex" alignItems="center">
+            <Button
+              inline
+              color="primary"
+              onClick={() => {
+                setEditMode(true);
+              }}
+            >
+              編集
+            </Button>
+            <Spacer pl={2} />
+            <Button
+              inline
+              color="danger"
+              onClick={onHandleChangeDeleteModalId(todo.id)}
+            >
+              削除
+            </Button>
+            {deleteModalId === todo.id && (
+              <DeleteModal
+                todo={todo}
+                onClose={onHandleChangeDeleteModalId(null)}
+                onSubmit={onHandleDelete}
+              />
+            )}
+          </Flex>
+        )}
+      </Styled.ButtonContainer>
     </Styled.Container>
   );
 };

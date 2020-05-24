@@ -58,6 +58,7 @@ export const List: React.FunctionComponent<Props> = ({
             name: "Status",
             selector: (row) => row.finish.toString(),
             renderCell: (row) => row.finish && <Icon name="check" size="md" />,
+            sortable: true,
           },
           {
             name: "Title",
@@ -86,7 +87,7 @@ export const List: React.FunctionComponent<Props> = ({
                   icon={"pencil"}
                   onClick={() => history.push(`/setting/${row.id}`)}
                 >
-                  編集
+                  詳細
                 </ActionButton>
               </Flex>
             ),

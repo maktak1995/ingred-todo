@@ -6,4 +6,8 @@ export const Container = styled.div`
   width: 800px;
 `;
 
-export const TitleContainer = styled.div``;
+export const TitleContainer = styled.div`
+  .h1 {
+    text-decoration: none;
+  }
+`;
