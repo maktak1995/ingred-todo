@@ -1,5 +1,7 @@
 declare type Todo = {
   id: number;
-  content: string;
+  title: string;
+  content?: string;
+  deadLine: string;
   finish: boolean;
 };
