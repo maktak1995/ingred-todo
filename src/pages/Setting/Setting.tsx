@@ -35,8 +35,17 @@ export const Setting: React.FunctionComponent<Props> = ({
     deleteTodo(todoId);
     history.push("/");
   };
+
   const onHandleChangeDeleteModalId = (id: number | null) => () =>
     setDeleteModalId(id);
+
+  const checkSaveEnable = (todo: Todo) => {
+    if (todo.id && todo.title && todo.deadLine !== "Invalid date") {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <Styled.Container>
@@ -52,6 +61,7 @@ export const Setting: React.FunctionComponent<Props> = ({
             <Button
               inline
               color="primary"
+              disabled={!checkSaveEnable(copiedTodo)}
               onClick={() => {
                 updateTodo(copiedTodo);
                 setEditMode(false);

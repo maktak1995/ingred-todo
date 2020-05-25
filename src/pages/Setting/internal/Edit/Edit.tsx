@@ -1,6 +1,6 @@
 import React from "react";
 import * as Styled from "./styled";
-import { Typography, Spacer, Input } from "ingred-ui";
+import { Typography, Spacer, Input, RadioButton } from "ingred-ui";
 import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 
@@ -37,7 +37,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
           説明
         </Typography>
         <Styled.TextAreaContainer
-          rows={20}
+          rows={10}
           cols={110}
           value={copiedTodo.content}
           onChange={(e) =>
@@ -62,6 +62,36 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
             })
           }
         />
+      </Styled.DeadLineContainer>
+
+      <Styled.DeadLineContainer>
+        <Typography weight="bold" size="xxl">
+          状態
+        </Typography>
+        <RadioButton
+          defaultChecked={true}
+          name="group"
+          onChange={() => {
+            setCopiedTodo({
+              ...copiedTodo,
+              finish: true,
+            });
+          }}
+        >
+          完了
+        </RadioButton>
+        <Spacer mt={1} />
+        <RadioButton
+          name="group"
+          onChange={() => {
+            setCopiedTodo({
+              ...copiedTodo,
+              finish: false,
+            });
+          }}
+        >
+          未完了
+        </RadioButton>
       </Styled.DeadLineContainer>
     </Styled.Container>
   );

@@ -25,7 +25,7 @@ export const List: React.FunctionComponent<Props> = ({
   addTodo,
 }) => {
   const history = useHistory();
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState<string>("");
 
   return (
     <Styled.Container>
@@ -39,6 +39,7 @@ export const List: React.FunctionComponent<Props> = ({
           <Spacer pl={1} />
           <Button
             inline
+            disabled={content === ""}
             size="small"
             color="primary"
             onClick={() => addTodo(content)}
@@ -58,20 +59,20 @@ export const List: React.FunctionComponent<Props> = ({
             name: "Status",
             selector: (row) => row.finish.toString(),
             renderCell: (row) => row.finish && <Icon name="check" size="md" />,
-            width: "10%",
             sortable: true,
+            width: "10%",
           },
           {
             name: "Title",
             selector: (row) => row.title,
-            width: "30%",
             sortable: true,
+            width: "50%",
           },
           {
             name: "DeadLine",
             selector: (row) => moment(row.deadLine).format("YYYY/MM/DD"),
-            width: "20%",
             sortable: true,
+            width: "20%",
           },
           {
             name: "Operation",

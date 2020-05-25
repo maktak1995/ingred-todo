@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, Spacer, ConfirmModal } from "ingred-ui";
+import { Typography, ConfirmModal } from "ingred-ui";
 
 type Props = {
   todo: Todo;
