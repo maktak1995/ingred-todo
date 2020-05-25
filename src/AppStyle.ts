@@ -5,9 +5,3 @@ export const Container = styled.div`
   margin-right: auto;
   width: 800px;
 `;
-
-export const TitleContainer = styled.div`
-  .h1 {
-    text-decoration: none;
-  }
-`;

@@ -24,9 +24,9 @@ export const Setting: React.FunctionComponent<Props> = ({
   const todo = todos.find(
     (todo) => todo.id === parseInt(match.params.todoId)
   ) as Todo;
+
   const [deleteModalId, setDeleteModalId] = React.useState<number | null>(null);
   const [editMode, setEditMode] = React.useState<boolean>(false);
-
   const [copiedTodo, setCopiedTodo] = React.useState<Todo>(
     Object.assign({}, todo)
   );
@@ -35,7 +35,6 @@ export const Setting: React.FunctionComponent<Props> = ({
     deleteTodo(todoId);
     history.push("/");
   };
-
   const onHandleChangeDeleteModalId = (id: number | null) => () =>
     setDeleteModalId(id);
 
@@ -54,8 +53,7 @@ export const Setting: React.FunctionComponent<Props> = ({
       ) : (
         <Content todo={todo} />
       )}
-      <Spacer pb={3} />
-      <Styled.ButtonContainer>
+      <Spacer pt={3}>
         {editMode ? (
           <Flex display="flex" alignItems="center">
             <Button
@@ -108,7 +106,7 @@ export const Setting: React.FunctionComponent<Props> = ({
             )}
           </Flex>
         )}
-      </Styled.ButtonContainer>
+      </Spacer>
     </Styled.Container>
   );
 };

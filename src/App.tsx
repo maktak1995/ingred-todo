@@ -15,16 +15,24 @@ const App: React.FunctionComponent = () => {
       <ThemeProvider theme={theme}>
         <Styled.Container>
           <Router>
-            <Styled.TitleContainer>
-              <Link to="/" style={{ textDecoration: "none" }}>
-                <Typography component="h1" size="xxxxl">
+            <Spacer p={2}>
+              <Typography component="h1" size="xxxxl">
+                <Link
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    color: `${theme.palette.text.primary}`,
+                  }}
+                >
                   Ingred-TODO
-                </Typography>
-              </Link>
-            </Styled.TitleContainer>
-            <Spacer pb={1} />
-            <Route exact path="/" component={ListView}></Route>
-            <Route path="/setting/:todoId" component={SettingView}></Route>
+                </Link>
+              </Typography>
+            </Spacer>
+
+            <Spacer p={2}>
+              <Route exact path="/" component={ListView}></Route>
+              <Route path="/setting/:todoId" component={SettingView}></Route>
+            </Spacer>
           </Router>
         </Styled.Container>
       </ThemeProvider>

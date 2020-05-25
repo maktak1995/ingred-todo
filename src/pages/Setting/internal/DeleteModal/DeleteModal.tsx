@@ -5,14 +5,12 @@ type Props = {
   todo: Todo;
   onClose?: () => void;
   onSubmit?: (demandId: number) => void;
-  loading?: boolean;
 };
 
 const DeleteModal: React.FunctionComponent<Props> = ({
   todo,
   onClose,
   onSubmit,
-  loading,
 }) => {
   const onHandleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -25,7 +23,6 @@ const DeleteModal: React.FunctionComponent<Props> = ({
       title="TODO削除"
       confirmText="削除する"
       buttonColor="danger"
-      loading={loading}
       onClose={onClose}
       onSubmit={onHandleSubmit}
     >

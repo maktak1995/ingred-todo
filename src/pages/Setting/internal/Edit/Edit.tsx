@@ -10,9 +10,7 @@ type Props = {
 };
 
 export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
-  const [copiedTodo, setCopiedTodo] = React.useState<Todo>(
-    Object.assign({}, todo)
-  );
+  const [copiedTodo, setCopiedTodo] = React.useState<Todo>(todo);
 
   React.useEffect(() => {
     onChange(copiedTodo);
@@ -32,10 +30,11 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
         }
       />
 
-      <Styled.ContentContainer>
+      <Spacer pt={3}>
         <Typography weight="bold" size="xxl">
           説明
         </Typography>
+        <Spacer pt={1} />
         <Styled.TextAreaContainer
           rows={10}
           cols={110}
@@ -44,12 +43,13 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
             setCopiedTodo({ ...copiedTodo, content: e.target.value })
           }
         />
-      </Styled.ContentContainer>
+      </Spacer>
 
-      <Styled.DeadLineContainer>
+      <Spacer pt={3}>
         <Typography weight="bold" size="xxl">
           締切
         </Typography>
+        <Spacer pt={1} />
         <TextField
           id="date"
           type="date"
@@ -62,12 +62,13 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
             })
           }
         />
-      </Styled.DeadLineContainer>
+      </Spacer>
 
-      <Styled.DeadLineContainer>
+      <Spacer pt={3}>
         <Typography weight="bold" size="xxl">
           状態
         </Typography>
+        <Spacer pt={1} />
         <RadioButton
           defaultChecked={true}
           name="group"
@@ -80,7 +81,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
         >
           完了
         </RadioButton>
-        <Spacer mt={1} />
+        <Spacer pt={1} />
         <RadioButton
           name="group"
           onChange={() => {
@@ -92,7 +93,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
         >
           未完了
         </RadioButton>
-      </Styled.DeadLineContainer>
+      </Spacer>
     </Styled.Container>
   );
 };

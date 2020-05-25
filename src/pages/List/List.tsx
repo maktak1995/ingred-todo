@@ -52,7 +52,7 @@ export const List: React.FunctionComponent<Props> = ({
       <DataTable
         emptyTitle="TODOがありません。"
         enablePagination={true}
-        per={10}
+        per={5}
         data={todos}
         columns={[
           {

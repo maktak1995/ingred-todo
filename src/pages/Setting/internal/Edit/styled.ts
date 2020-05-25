@@ -3,11 +3,6 @@ import { palette } from "ingred-ui";
 
 export const Container = styled.div``;
 
-export const ContentContainer = styled.div``;
-export const StatusContainer = styled.div``;
-export const DeadLineContainer = styled.div``;
-
-export const ButtonContainer = styled.div``;
 export const TextAreaContainer = styled.textarea`
   display: inline-flex;
   padding: 10px 8px 10px 8px;
