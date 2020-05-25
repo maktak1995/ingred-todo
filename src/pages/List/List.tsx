@@ -58,9 +58,14 @@ export const List: React.FunctionComponent<Props> = ({
           {
             name: "Status",
             selector: (row) => row.finish.toString(),
-            renderCell: (row) => row.finish && <Icon name="check" size="md" />,
+            renderCell: (row) =>
+              row.finish && (
+                <Spacer pl={2}>
+                  <Icon name="check" size="lg" />
+                </Spacer>
+              ),
             sortable: true,
-            width: "10%",
+            width: "15%",
           },
           {
             name: "Title",
@@ -95,7 +100,7 @@ export const List: React.FunctionComponent<Props> = ({
                 </ActionButton>
               </Flex>
             ),
-            width: "20%",
+            width: "25%",
           },
         ]}
       />
