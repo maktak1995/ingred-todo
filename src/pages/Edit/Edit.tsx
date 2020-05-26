@@ -12,24 +12,15 @@ import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 import { useHistory } from "react-router-dom";
 import { UpdatePyload } from "../../store/modules/todo/actions";
-import { RouteComponentProps } from "react-router-dom";
 
 type Props = {
-  todos: Todo[];
+  todo: Todo;
   updateTodo: (payload: UpdatePyload) => void;
-} & RouteComponentProps<{ todoId: string }>;
+};
 
-export const Edit: React.FunctionComponent<Props> = ({
-  match,
-  todos,
-  updateTodo,
-}) => {
+export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
   const history = useHistory();
-  const todo = todos.find(
-    (todo) => todo.id === parseInt(match.params.todoId)
-  ) as Todo;
-
-  const [copiedTodo, setCopiedTodo] = React.useState<Todo>(todo);
+  const [editedTodo, setEditedTodo] = React.useState<Todo>(todo);
 
   return (
     <Styled.Container>
@@ -39,9 +30,9 @@ export const Edit: React.FunctionComponent<Props> = ({
       <Spacer pt={1} />
       <Input
         placeholder="Place holder"
-        value={copiedTodo.title}
+        value={editedTodo.title}
         onChange={(e) =>
-          setCopiedTodo({ ...copiedTodo, title: e.target.value })
+          setEditedTodo({ ...editedTodo, title: e.target.value })
         }
       />
 
@@ -53,9 +44,9 @@ export const Edit: React.FunctionComponent<Props> = ({
         <Styled.TextAreaContainer
           rows={10}
           cols={110}
-          value={copiedTodo.content}
+          value={editedTodo.content}
           onChange={(e) =>
-            setCopiedTodo({ ...copiedTodo, content: e.target.value })
+            setEditedTodo({ ...editedTodo, content: e.target.value })
           }
         />
       </Spacer>
@@ -69,10 +60,10 @@ export const Edit: React.FunctionComponent<Props> = ({
           id="date"
           type="date"
           variant="outlined"
-          defaultValue={moment(copiedTodo.deadLine).format("YYYY-MM-DD")}
+          defaultValue={moment(editedTodo.deadLine).format("YYYY-MM-DD")}
           onChange={(e) =>
-            setCopiedTodo({
-              ...copiedTodo,
+            setEditedTodo({
+              ...editedTodo,
               deadLine: moment(e.target.value).format("YYYY/MM/DD"),
             })
           }
@@ -88,8 +79,8 @@ export const Edit: React.FunctionComponent<Props> = ({
           defaultChecked={true}
           name="group"
           onChange={() => {
-            setCopiedTodo({
-              ...copiedTodo,
+            setEditedTodo({
+              ...editedTodo,
               finish: true,
             });
           }}
@@ -100,8 +91,8 @@ export const Edit: React.FunctionComponent<Props> = ({
         <RadioButton
           name="group"
           onChange={() => {
-            setCopiedTodo({
-              ...copiedTodo,
+            setEditedTodo({
+              ...editedTodo,
               finish: false,
             });
           }}
@@ -116,7 +107,7 @@ export const Edit: React.FunctionComponent<Props> = ({
             color="primary"
             disabled={!(todo.title && todo.deadLine !== "Invalid date")}
             onClick={() => {
-              updateTodo(copiedTodo);
+              updateTodo(editedTodo);
               history.push(`/detail/${todo.id}`);
             }}
           >

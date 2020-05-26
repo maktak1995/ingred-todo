@@ -5,24 +5,18 @@ import { Flex, Button, Spacer, Typography } from "ingred-ui";
 import { default as ReactMarkdown } from "react-markdown";
 import { useHistory } from "react-router-dom";
 import { DeletePyload } from "../../store/modules/todo/actions";
-import { RouteComponentProps } from "react-router-dom";
 import { DeleteModal } from "./internal/DeleteModal";
 
 type Props = {
-  todos: Todo[];
+  todo: Todo;
   deleteTodo: (payload: DeletePyload) => void;
-} & RouteComponentProps<{ todoId: string }>;
+};
 
 export const Detail: React.FunctionComponent<Props> = ({
-  match,
-  todos,
+  todo,
   deleteTodo,
 }) => {
   const history = useHistory();
-  const todo = todos.find(
-    (todo) => todo.id === parseInt(match.params.todoId)
-  ) as Todo;
-
   const [deleteModalId, setDeleteModalId] = React.useState<number | null>(null);
 
   const onHandleDelete = (todoId: number) => {
