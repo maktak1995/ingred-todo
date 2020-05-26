@@ -12,7 +12,7 @@ type Props = {
 
 const mapStateToProps = (state: RootState, props: Props) => {
   return {
-    todos: matchIdTodoSelector(state.todos, props.match.params.todoId),
+    todo: matchIdTodoSelector(state.todos, props.match.params.todoId),
   };
 };
 
