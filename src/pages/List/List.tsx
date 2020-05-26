@@ -5,13 +5,13 @@ import { useHistory } from "react-router-dom";
 import { AddPyload, UpdatePyload } from "../../store/modules/todo/actions";
 import {
   DataTable,
-  Input,
   Icon,
   Flex,
-  Button,
+  createTheme,
   ActionButton,
   Spacer,
 } from "ingred-ui";
+import { CreateModal } from "./internal/CreateModal";
 
 type Props = {
   todos: Todo[];
@@ -24,35 +24,35 @@ export const List: React.FunctionComponent<Props> = ({
   updateTodo,
   addTodo,
 }) => {
+  const theme = createTheme();
   const history = useHistory();
-  const [content, setContent] = React.useState<string>("");
+  const [createModalOpen, setCreateModalOpen] = React.useState(false);
+  const onHandleChangeCreateModalOpen = (isOpen: boolean) => () =>
+    setCreateModalOpen(isOpen);
+
+  const onHandleCreate = (title: string) => {
+    addTodo(title);
+    setCreateModalOpen(false);
+  };
 
   return (
     <Styled.Container>
       <Styled.TaskAdderContainer>
-        <Flex display="flex" alignItems="center">
-          <Input
-            placeholder="Type Task Name"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+        <Styled.IconContainer onClick={onHandleChangeCreateModalOpen(true)}>
+          <Icon name="add_line" color="active" size="lg" />
+        </Styled.IconContainer>
+        {createModalOpen && (
+          <CreateModal
+            onClose={onHandleChangeCreateModalOpen(false)}
+            onSubmit={onHandleCreate}
           />
-          <Spacer pl={1} />
-          <Button
-            inline
-            disabled={content === ""}
-            size="small"
-            color="primary"
-            onClick={() => addTodo(content)}
-          >
-            追加
-          </Button>
-        </Flex>
+        )}
       </Styled.TaskAdderContainer>
       <Spacer pb={3} />
       <DataTable
         emptyTitle="TODOがありません。"
         enablePagination={true}
-        per={5}
+        per={10}
         data={todos}
         columns={[
           {
@@ -61,7 +61,11 @@ export const List: React.FunctionComponent<Props> = ({
             renderCell: (row) =>
               row.finish && (
                 <Spacer pl={2}>
-                  <Icon name="check" size="lg" />
+                  <Icon
+                    name="check"
+                    size="lg"
+                    color={theme.palette.danger.main}
+                  />
                 </Spacer>
               ),
             sortable: true,
@@ -84,14 +88,16 @@ export const List: React.FunctionComponent<Props> = ({
             selector: (row) => row.id,
             renderCell: (row) => (
               <Flex display="flex" alignItems="center">
-                <Spacer pr={0.5}>
-                  <ActionButton
-                    icon={"check"}
-                    onClick={() => updateTodo({ ...row, finish: true })}
-                  >
-                    完了
-                  </ActionButton>
-                </Spacer>
+                {!row.finish && (
+                  <Spacer pr={0.5}>
+                    <ActionButton
+                      icon={"check"}
+                      onClick={() => updateTodo({ ...row, finish: true })}
+                    >
+                      完了
+                    </ActionButton>
+                  </Spacer>
+                )}
                 <ActionButton
                   icon={"pencil"}
                   onClick={() => history.push(`/detail/${row.id}`)}
