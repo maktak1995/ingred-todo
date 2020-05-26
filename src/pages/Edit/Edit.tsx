@@ -1,20 +1,35 @@
 import React from "react";
 import * as Styled from "./styled";
-import { Typography, Spacer, Input, RadioButton } from "ingred-ui";
+import {
+  Flex,
+  Button,
+  Spacer,
+  Typography,
+  Input,
+  RadioButton,
+} from "ingred-ui";
 import moment from "moment";
 import TextField from "@material-ui/core/TextField";
+import { useHistory } from "react-router-dom";
+import { UpdatePyload } from "../../store/modules/todo/actions";
+import { RouteComponentProps } from "react-router-dom";
 
 type Props = {
-  todo: Todo;
-  onChange: (changedTodo: Todo) => void;
-};
+  todos: Todo[];
+  updateTodo: (payload: UpdatePyload) => void;
+} & RouteComponentProps<{ todoId: string }>;
 
-export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
+export const Edit: React.FunctionComponent<Props> = ({
+  match,
+  todos,
+  updateTodo,
+}) => {
+  const history = useHistory();
+  const todo = todos.find(
+    (todo) => todo.id === parseInt(match.params.todoId)
+  ) as Todo;
+
   const [copiedTodo, setCopiedTodo] = React.useState<Todo>(todo);
-
-  React.useEffect(() => {
-    onChange(copiedTodo);
-  }, [onChange, copiedTodo]);
 
   return (
     <Styled.Container>
@@ -93,6 +108,31 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, onChange }) => {
         >
           未完了
         </RadioButton>
+      </Spacer>
+      <Spacer pt={3}>
+        <Flex display="flex" alignItems="center">
+          <Button
+            inline
+            color="primary"
+            disabled={!(todo.title && todo.deadLine !== "Invalid date")}
+            onClick={() => {
+              updateTodo(copiedTodo);
+              history.push(`/detail/${todo.id}`);
+            }}
+          >
+            保存
+          </Button>
+          <Spacer pl={2} />
+          <Button
+            inline
+            color="cancel"
+            onClick={() => {
+              history.push(`/detail/${todo.id}`);
+            }}
+          >
+            キャンセル
+          </Button>
+        </Flex>
       </Spacer>
     </Styled.Container>
   );

@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
-import { add_todo, update_todo, delete_todo } from "../actions";
+import { addTodo, updateTodo, deleteTodo } from "../actions";
 import moment from "moment";
 
 export type TodoState = {
@@ -11,7 +11,7 @@ const initialState: TodoState = localStorage.getItem("todos")
   ? JSON.parse(localStorage.getItem("todos") as string)
   : { nextId: 0, todos: [] };
 
-const updateTodo = (todos: Todo[], payload: Todo) => {
+const handleUpdateTodo = (todos: Todo[], payload: Todo) => {
   const newTodos = todos.slice();
   const index = newTodos.findIndex((item: Todo) => item.id === payload.id);
   newTodos[index] = payload;
@@ -19,7 +19,7 @@ const updateTodo = (todos: Todo[], payload: Todo) => {
 };
 
 export const todoReducer = reducerWithInitialState(initialState)
-  .case(add_todo, (state, payload) => ({
+  .case(addTodo, (state, payload) => ({
     ...state,
     nextId: state.nextId + 1,
     todos: state.todos.concat({
@@ -29,11 +29,11 @@ export const todoReducer = reducerWithInitialState(initialState)
       finish: false,
     }),
   }))
-  .case(update_todo, (state, payload) => ({
+  .case(updateTodo, (state, payload) => ({
     ...state,
-    todos: updateTodo(state.todos, payload),
+    todos: handleUpdateTodo(state.todos, payload),
   }))
-  .case(delete_todo, (state, payload) => ({
+  .case(deleteTodo, (state, payload) => ({
     ...state,
     todos: state.todos.filter((item) => item.id !== payload),
   }));

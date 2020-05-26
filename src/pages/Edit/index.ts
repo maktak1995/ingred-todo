@@ -1,11 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { List as Component } from "./List";
-import {
-  addTodo,
-  updateTodo,
-  deleteTodo,
-} from "../../store/modules/todo/actions";
+import { Edit as Component } from "./Edit";
+import { updateTodo } from "../../store/modules/todo/actions";
 import { RootState } from "../../store";
 
 const mapStateToProps = (state: RootState) => {
@@ -16,10 +12,8 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addTodo: (title: string) => dispatch(addTodo(title)),
-    deleteTodo: (id: number) => dispatch(deleteTodo(id)),
     updateTodo: (todo: Todo) => dispatch(updateTodo(todo)),
   };
 };
 
-export const ListView = connect(mapStateToProps, mapDispatchToProps)(Component);
+export const EditView = connect(mapStateToProps, mapDispatchToProps)(Component);

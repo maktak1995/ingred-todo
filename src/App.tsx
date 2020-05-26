@@ -4,7 +4,8 @@ import { ThemeProvider, createTheme, Typography, Spacer } from "ingred-ui";
 import { configureStore } from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { SettingView } from "./pages/Setting";
+import { EditView } from "./pages/Edit";
+import { DetailView } from "./pages/Detail";
 import { ListView } from "./pages/List";
 
 const App: React.FunctionComponent = () => {
@@ -31,7 +32,8 @@ const App: React.FunctionComponent = () => {
 
             <Spacer p={2}>
               <Route exact path="/" component={ListView}></Route>
-              <Route path="/setting/:todoId" component={SettingView}></Route>
+              <Route path="/detail/:todoId" component={DetailView}></Route>
+              <Route path="/edit/:todoId" component={EditView}></Route>
             </Spacer>
           </Router>
         </Styled.Container>

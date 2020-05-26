@@ -94,7 +94,7 @@ export const List: React.FunctionComponent<Props> = ({
                 </Spacer>
                 <ActionButton
                   icon={"pencil"}
-                  onClick={() => history.push(`/setting/${row.id}`)}
+                  onClick={() => history.push(`/detail/${row.id}`)}
                 >
                   詳細
                 </ActionButton>
