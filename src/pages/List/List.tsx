@@ -53,6 +53,36 @@ export const List: React.FunctionComponent<Props> = ({
         emptyTitle="TODOがありません。"
         enablePagination={true}
         per={10}
+        tabWidth="400px"
+        tabs={[
+          {
+            label: "全て",
+            filter: (data) => data,
+          },
+          {
+            label: "今日",
+            filter: (data) =>
+              data.filter(
+                (item) =>
+                  moment(item.deadLine).format("YYYY/MM/DD") ===
+                  moment().format("YYYY/MM/DD")
+              ),
+          },
+          {
+            label: "今週",
+            filter: (data) =>
+              data.filter(
+                (item) =>
+                  moment(item.deadLine) > moment() &&
+                  moment(item.deadLine) <= moment().add(7, "d")
+              ),
+          },
+          {
+            label: "期限切れ",
+            filter: (data) =>
+              data.filter((item) => moment(item.deadLine) <= moment()),
+          },
+        ]}
         data={todos}
         columns={[
           {
