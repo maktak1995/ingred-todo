@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./styled";
 import moment from "moment";
-import { Flex, Button, Spacer, Typography } from "ingred-ui";
+import { Flex, Button, Spacer, Table } from "ingred-ui";
 import { default as ReactMarkdown } from "react-markdown";
 import { useHistory } from "react-router-dom";
 import { DeletePyload } from "../../store/modules/todo/actions";
@@ -28,37 +28,36 @@ export const Detail: React.FunctionComponent<Props> = ({
 
   return (
     <Styled.Container>
-      <Typography weight="bold" size="xxxl">
-        {todo.title}
-      </Typography>
-
-      <Spacer pt={3}>
-        <Typography weight="bold" size="xxl">
-          説明
-        </Typography>
-        <Spacer pb={1} />
-        {todo.content ? (
-          <ReactMarkdown source={todo.content} escapeHtml={false} />
-        ) : (
-          <div>なし</div>
-        )}
-      </Spacer>
-
-      <Spacer pt={3}>
-        <Typography weight="bold" size="xxl">
-          締切
-        </Typography>
-        <Spacer pb={1} />
-        {moment(todo.deadLine).format("YYYY/MM/DD")}
-      </Spacer>
-
-      <Spacer pt={3}>
-        <Typography weight="bold" size="xxl">
-          状態
-        </Typography>
-        <Spacer pb={1} />
-        {todo.finish ? <div>完了</div> : <div>未完了</div>}
-      </Spacer>
+      <Table>
+        <Table.Body>
+          <Table.Row>
+            <Table.HeaderCell width="140px">タイトル</Table.HeaderCell>
+            <Table.Cell>{todo.title}</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.HeaderCell width="140px">説明</Table.HeaderCell>
+            <Table.Cell>
+              {todo.content ? (
+                <ReactMarkdown source={todo.content} escapeHtml={false} />
+              ) : (
+                <div>なし</div>
+              )}
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.HeaderCell width="140px">締め切り</Table.HeaderCell>
+            <Table.Cell>
+              {moment(todo.deadLine).format("YYYY/MM/DD")}
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.HeaderCell width="140px">状態</Table.HeaderCell>
+            <Table.Cell>
+              {todo.finish ? <div>完了</div> : <div>未完了</div>}
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
 
       <Spacer pt={3}>
         <Flex display="flex" alignItems="center">
