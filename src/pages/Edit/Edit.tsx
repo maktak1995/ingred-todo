@@ -7,6 +7,7 @@ import {
   Typography,
   Input,
   RadioButton,
+  Icon,
 } from "ingred-ui";
 import moment from "moment";
 import TextField from "@material-ui/core/TextField";
@@ -24,6 +25,14 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
 
   return (
     <Styled.Container>
+      <Styled.IconContainer
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <Icon name="arrow_double_left" color="active" size="lg" />
+      </Styled.IconContainer>
+      <Spacer pb={3} />
       <Typography weight="bold" size="xxxl">
         タイトル
       </Typography>

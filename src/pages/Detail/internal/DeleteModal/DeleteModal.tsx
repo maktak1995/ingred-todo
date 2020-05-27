@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, ConfirmModal } from "ingred-ui";
+import { Typography, ConfirmModal, Spacer } from "ingred-ui";
 
 type Props = {
   todo: Todo;
@@ -26,9 +26,11 @@ const DeleteModal: React.FunctionComponent<Props> = ({
       onClose={onClose}
       onSubmit={onHandleSubmit}
     >
-      <Typography lineHeight="1.7">
-        {todo.title}を削除してもよろしいですか？
-      </Typography>
+      <Spacer pt={2}>
+        <Typography lineHeight="1.7">
+          {todo.title}を削除してもよろしいですか？
+        </Typography>
+      </Spacer>
     </ConfirmModal>
   );
 };

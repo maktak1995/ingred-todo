@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./styled";
 import moment from "moment";
-import { Flex, Button, Spacer, Table } from "ingred-ui";
+import { Flex, Button, Spacer, Table, Icon } from "ingred-ui";
 import { default as ReactMarkdown } from "react-markdown";
 import { useHistory } from "react-router-dom";
 import { DeletePyload } from "../../store/modules/todo/actions";
@@ -28,6 +28,14 @@ export const Detail: React.FunctionComponent<Props> = ({
 
   return (
     <Styled.Container>
+      <Styled.IconContainer
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <Icon name="arrow_double_left" color="active" size="lg" />
+      </Styled.IconContainer>
+      <Spacer pb={3} />
       <Table>
         <Table.Body>
           <Table.Row>
