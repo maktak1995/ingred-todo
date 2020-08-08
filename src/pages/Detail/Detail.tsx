@@ -1,8 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 import { Flex, Button, Spacer, Table, Icon } from 'ingred-ui';
 import { default as ReactMarkdown } from 'react-markdown';
 import { useHistory } from 'react-router-dom';
+import { default as dayjs } from 'dayjs';
 import * as Styled from './styled';
 import { DeletePyload } from '../../store/modules/todo/actions';
 import { DeleteModal } from './internal/DeleteModal';
@@ -55,9 +55,7 @@ export const Detail: React.FunctionComponent<Props> = ({
           </Table.Row>
           <Table.Row>
             <Table.HeaderCell width="140px">締め切り</Table.HeaderCell>
-            <Table.Cell>
-              {moment(todo.deadLine).format('YYYY/MM/DD')}
-            </Table.Cell>
+            <Table.Cell>{dayjs(todo.deadLine).format('YYYY/MM/DD')}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.HeaderCell width="140px">状態</Table.HeaderCell>

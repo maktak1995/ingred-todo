@@ -8,7 +8,7 @@ import {
   RadioButton,
   Icon,
 } from 'ingred-ui';
-import moment from 'moment';
+import { default as dayjs } from 'dayjs';
 import TextField from '@material-ui/core/TextField';
 import { useHistory } from 'react-router-dom';
 import * as Styled from './styled';
@@ -70,11 +70,11 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
           id="date"
           type="date"
           variant="outlined"
-          defaultValue={moment(editedTodo.deadLine).format('YYYY-MM-DD')}
+          defaultValue={dayjs(editedTodo.deadLine).format('YYYY-MM-DD')}
           onChange={(e) =>
             setEditedTodo({
               ...editedTodo,
-              deadLine: moment(e.target.value).format('YYYY/MM/DD'),
+              deadLine: dayjs(e.target.value).format('YYYY/MM/DD'),
             })
           }
         />

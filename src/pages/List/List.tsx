@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import { default as dayjs } from 'dayjs';
 import { useHistory } from 'react-router-dom';
 import {
   DataTable,
@@ -64,8 +64,8 @@ export const List: React.FunctionComponent<Props> = ({
             filter: (data) =>
               data.filter(
                 (item) =>
-                  moment(item.deadLine).format('YYYY/MM/DD') ===
-                  moment().format('YYYY/MM/DD'),
+                  dayjs(item.deadLine).format('YYYY/MM/DD') ===
+                  dayjs().format('YYYY/MM/DD'),
               ),
           },
           {
@@ -73,14 +73,14 @@ export const List: React.FunctionComponent<Props> = ({
             filter: (data) =>
               data.filter(
                 (item) =>
-                  moment(item.deadLine) > moment() &&
-                  moment(item.deadLine) <= moment().add(7, 'd'),
+                  dayjs(item.deadLine) > dayjs() &&
+                  dayjs(item.deadLine) <= dayjs().add(7, 'd'),
               ),
           },
           {
             label: '期限切れ',
             filter: (data) =>
-              data.filter((item) => moment(item.deadLine) <= moment()),
+              data.filter((item) => dayjs(item.deadLine) <= dayjs()),
           },
         ]}
         data={todos}
@@ -109,7 +109,7 @@ export const List: React.FunctionComponent<Props> = ({
           },
           {
             name: 'DeadLine',
-            selector: (row) => moment(row.deadLine).format('YYYY/MM/DD'),
+            selector: (row) => dayjs(row.deadLine).format('YYYY/MM/DD'),
             sortable: true,
             width: '20%',
           },
