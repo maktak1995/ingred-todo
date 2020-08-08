@@ -1,14 +1,15 @@
-import React from "react";
-import * as Styled from "./styled";
-import moment from "moment";
-import { Flex, Button, Spacer, Table, Icon } from "ingred-ui";
-import { default as ReactMarkdown } from "react-markdown";
-import { useHistory } from "react-router-dom";
-import { DeletePyload } from "../../store/modules/todo/actions";
-import { DeleteModal } from "./internal/DeleteModal";
+import React from 'react';
+import moment from 'moment';
+import { Flex, Button, Spacer, Table, Icon } from 'ingred-ui';
+import { default as ReactMarkdown } from 'react-markdown';
+import { useHistory } from 'react-router-dom';
+import * as Styled from './styled';
+import { DeletePyload } from '../../store/modules/todo/actions';
+import { DeleteModal } from './internal/DeleteModal';
+import { Domain } from '../../types';
 
 type Props = {
-  todo: Todo;
+  todo: Domain.Todo;
   deleteTodo: (payload: DeletePyload) => void;
 };
 
@@ -21,7 +22,7 @@ export const Detail: React.FunctionComponent<Props> = ({
 
   const onHandleDelete = (todoId: number) => {
     deleteTodo(todoId);
-    history.push("/");
+    history.push('/');
   };
   const onHandleChangeDeleteModalId = (id: number | null) => () =>
     setDeleteModalId(id);
@@ -30,7 +31,7 @@ export const Detail: React.FunctionComponent<Props> = ({
     <Styled.Container>
       <Styled.IconContainer
         onClick={() => {
-          history.push("/");
+          history.push('/');
         }}
       >
         <Icon name="arrow_double_left" color="active" size="lg" />
@@ -55,7 +56,7 @@ export const Detail: React.FunctionComponent<Props> = ({
           <Table.Row>
             <Table.HeaderCell width="140px">締め切り</Table.HeaderCell>
             <Table.Cell>
-              {moment(todo.deadLine).format("YYYY/MM/DD")}
+              {moment(todo.deadLine).format('YYYY/MM/DD')}
             </Table.Cell>
           </Table.Row>
           <Table.Row>

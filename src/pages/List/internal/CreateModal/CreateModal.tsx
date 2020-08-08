@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as Styled from "./styled";
-import { TextField, ConfirmModal } from "ingred-ui";
-import { useForm } from "react-hook-form";
+import * as React from 'react';
+import { TextField, ConfirmModal } from 'ingred-ui';
+import { useForm } from 'react-hook-form';
+import * as Styled from './styled';
 
 type Props = {
   onClose: () => void;
@@ -21,7 +21,7 @@ const CreateModal: React.FunctionComponent<Props> = ({ onClose, onSubmit }) => {
     }
   };
 
-  const watchTodoTitle = watch("title");
+  const watchTodoTitle = watch('title');
 
   return (
     <ConfirmModal

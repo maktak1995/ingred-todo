@@ -1,12 +1,12 @@
-import React from "react";
-import * as Styled from "./AppStyle";
-import { ThemeProvider, createTheme, Typography, Spacer } from "ingred-ui";
-import { configureStore } from "./store";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { EditView } from "./pages/Edit";
-import { DetailView } from "./pages/Detail";
-import { ListView } from "./pages/List";
+import React from 'react';
+import { ThemeProvider, createTheme, Typography, Spacer } from 'ingred-ui';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { configureStore } from './store';
+import * as Styled from './AppStyle';
+import { EditView } from './pages/Edit';
+import { DetailView } from './pages/Detail';
+import { ListView } from './pages/List';
 
 const App: React.FunctionComponent = () => {
   const store = configureStore();
@@ -21,7 +21,7 @@ const App: React.FunctionComponent = () => {
                 <Link
                   to="/"
                   style={{
-                    textDecoration: "none",
+                    textDecoration: 'none',
                     color: `${theme.palette.text.primary}`,
                   }}
                 >
@@ -31,9 +31,9 @@ const App: React.FunctionComponent = () => {
             </Spacer>
 
             <Spacer p={2}>
-              <Route exact path="/" component={ListView}></Route>
-              <Route path="/detail/:todoId" component={DetailView}></Route>
-              <Route path="/edit/:todoId" component={EditView}></Route>
+              <Route exact path="/" component={ListView} />
+              <Route path="/detail/:todoId" component={DetailView} />
+              <Route path="/edit/:todoId" component={EditView} />
             </Spacer>
           </Router>
         </Styled.Container>

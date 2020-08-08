@@ -1,0 +1,62 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier",
+        "prettier/react",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "@typescript-eslint", "prettier", "import"],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+    "rules": {
+        "@typescript-eslint/indent": ["error", 2],
+        "@typescript-eslint/prefer-interface": "off",
+        "@typescript-eslint/no-namespace": "off",
+        "react/jsx-filename-extension": [
+            "error",
+            { "extensions": [".jsx", ".tsx"] }
+        ],
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "semi": true,
+                "trailingComma": "all",
+                "tabWidth": 2
+            }
+        ],
+        "react/prop-types": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "import/no-named-default": "off",
+        "no-param-reassign": "warn"
+    }
+}

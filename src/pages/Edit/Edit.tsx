@@ -1,5 +1,4 @@
-import React from "react";
-import * as Styled from "./styled";
+import React from 'react';
 import {
   Flex,
   Button,
@@ -8,26 +7,28 @@ import {
   Input,
   RadioButton,
   Icon,
-} from "ingred-ui";
-import moment from "moment";
-import TextField from "@material-ui/core/TextField";
-import { useHistory } from "react-router-dom";
-import { UpdatePyload } from "../../store/modules/todo/actions";
+} from 'ingred-ui';
+import moment from 'moment';
+import TextField from '@material-ui/core/TextField';
+import { useHistory } from 'react-router-dom';
+import * as Styled from './styled';
+import { UpdatePyload } from '../../store/modules/todo/actions';
+import { Domain } from '../../types';
 
 type Props = {
-  todo: Todo;
+  todo: Domain.Todo;
   updateTodo: (payload: UpdatePyload) => void;
 };
 
 export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
   const history = useHistory();
-  const [editedTodo, setEditedTodo] = React.useState<Todo>(todo);
+  const [editedTodo, setEditedTodo] = React.useState<Domain.Todo>(todo);
 
   return (
     <Styled.Container>
       <Styled.IconContainer
         onClick={() => {
-          history.push("/");
+          history.push('/');
         }}
       >
         <Icon name="arrow_double_left" color="active" size="lg" />
@@ -40,7 +41,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
       <Input
         placeholder="Place holder"
         value={editedTodo.title}
-        onChange={(e) =>
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setEditedTodo({ ...editedTodo, title: e.target.value })
         }
       />
@@ -54,7 +55,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
           rows={10}
           cols={110}
           value={editedTodo.content}
-          onChange={(e) =>
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setEditedTodo({ ...editedTodo, content: e.target.value })
           }
         />
@@ -69,11 +70,11 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
           id="date"
           type="date"
           variant="outlined"
-          defaultValue={moment(editedTodo.deadLine).format("YYYY-MM-DD")}
+          defaultValue={moment(editedTodo.deadLine).format('YYYY-MM-DD')}
           onChange={(e) =>
             setEditedTodo({
               ...editedTodo,
-              deadLine: moment(e.target.value).format("YYYY/MM/DD"),
+              deadLine: moment(e.target.value).format('YYYY/MM/DD'),
             })
           }
         />
@@ -85,7 +86,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
         </Typography>
         <Spacer pt={1} />
         <RadioButton
-          defaultChecked={true}
+          defaultChecked
           name="group"
           onChange={() => {
             setEditedTodo({
@@ -114,7 +115,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
           <Button
             inline
             color="primary"
-            disabled={!(todo.title && todo.deadLine !== "Invalid date")}
+            disabled={!(todo.title && todo.deadLine !== 'Invalid date')}
             onClick={() => {
               updateTodo(editedTodo);
               history.push(`/detail/${todo.id}`);
@@ -125,7 +126,7 @@ export const Edit: React.FunctionComponent<Props> = ({ todo, updateTodo }) => {
           <Spacer pl={2} />
           <Button
             inline
-            color="cancel"
+            color="secondary"
             onClick={() => {
               history.push(`/detail/${todo.id}`);
             }}

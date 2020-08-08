@@ -1,8 +1,9 @@
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { List as Component } from "./List";
-import { addTodo, updateTodo } from "../../store/modules/todo/actions";
-import { RootState } from "../../store";
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { List as Component } from './List';
+import { addTodo, updateTodo } from '../../store/modules/todo/actions';
+import { RootState } from '../../store';
+import { Domain } from '../../types';
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -13,7 +14,7 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addTodo: (title: string) => dispatch(addTodo(title)),
-    updateTodo: (todo: Todo) => dispatch(updateTodo(todo)),
+    updateTodo: (todo: Domain.Todo) => dispatch(updateTodo(todo)),
   };
 };
 

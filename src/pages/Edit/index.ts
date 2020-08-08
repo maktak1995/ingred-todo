@@ -1,13 +1,14 @@
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { RouteComponentProps } from "react-router-dom";
-import { Edit as Component } from "./Edit";
-import { updateTodo } from "../../store/modules/todo/actions";
-import { matchIdTodoSelector } from "../../store/modules/todo/selectors";
-import { RootState } from "../../store";
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { Edit as Component } from './Edit';
+import { updateTodo } from '../../store/modules/todo/actions';
+import { matchIdTodoSelector } from '../../store/modules/todo/selectors';
+import { RootState } from '../../store';
+import { Domain } from '../../types';
 
 type Props = {
-  todos: Todo[];
+  todos: Domain.Todo[];
 } & RouteComponentProps<{ todoId: string }>;
 
 const mapStateToProps = (state: RootState, props: Props) => {
@@ -18,7 +19,7 @@ const mapStateToProps = (state: RootState, props: Props) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    updateTodo: (todo: Todo) => dispatch(updateTodo(todo)),
+    updateTodo: (todo: Domain.Todo) => dispatch(updateTodo(todo)),
   };
 };
 

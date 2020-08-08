@@ -1,8 +1,9 @@
-import * as React from "react";
-import { Typography, ConfirmModal, Spacer } from "ingred-ui";
+import * as React from 'react';
+import { Typography, ConfirmModal, Spacer } from 'ingred-ui';
+import { Domain } from '../../../../types';
 
 type Props = {
-  todo: Todo;
+  todo: Domain.Todo;
   onClose?: () => void;
   onSubmit?: (demandId: number) => void;
 };

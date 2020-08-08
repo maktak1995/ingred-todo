@@ -1,8 +1,6 @@
-import React from "react";
-import * as Styled from "./styled";
-import moment from "moment";
-import { useHistory } from "react-router-dom";
-import { AddPyload, UpdatePyload } from "../../store/modules/todo/actions";
+import React from 'react';
+import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 import {
   DataTable,
   Icon,
@@ -10,11 +8,14 @@ import {
   createTheme,
   ActionButton,
   Spacer,
-} from "ingred-ui";
-import { CreateModal } from "./internal/CreateModal";
+} from 'ingred-ui';
+import { AddPyload, UpdatePyload } from '../../store/modules/todo/actions';
+import * as Styled from './styled';
+import { CreateModal } from './internal/CreateModal';
+import { Domain } from '../../types';
 
 type Props = {
-  todos: Todo[];
+  todos: Domain.Todo[];
   updateTodo: (payload: UpdatePyload) => void;
   addTodo: (payload: AddPyload) => void;
 };
@@ -51,34 +52,33 @@ export const List: React.FunctionComponent<Props> = ({
       <Spacer pb={3} />
       <DataTable
         emptyTitle="TODOがありません。"
-        enablePagination={true}
+        enablePagination
         per={10}
-        tabWidth="400px"
         tabs={[
           {
-            label: "全て",
+            label: '全て',
             filter: (data) => data,
           },
           {
-            label: "今日",
+            label: '今日',
             filter: (data) =>
               data.filter(
                 (item) =>
-                  moment(item.deadLine).format("YYYY/MM/DD") ===
-                  moment().format("YYYY/MM/DD")
+                  moment(item.deadLine).format('YYYY/MM/DD') ===
+                  moment().format('YYYY/MM/DD'),
               ),
           },
           {
-            label: "今週",
+            label: '今週',
             filter: (data) =>
               data.filter(
                 (item) =>
                   moment(item.deadLine) > moment() &&
-                  moment(item.deadLine) <= moment().add(7, "d")
+                  moment(item.deadLine) <= moment().add(7, 'd'),
               ),
           },
           {
-            label: "期限切れ",
+            label: '期限切れ',
             filter: (data) =>
               data.filter((item) => moment(item.deadLine) <= moment()),
           },
@@ -86,7 +86,7 @@ export const List: React.FunctionComponent<Props> = ({
         data={todos}
         columns={[
           {
-            name: "Status",
+            name: 'Status',
             selector: (row) => row.finish.toString(),
             renderCell: (row) =>
               row.finish && (
@@ -99,29 +99,29 @@ export const List: React.FunctionComponent<Props> = ({
                 </Spacer>
               ),
             sortable: true,
-            width: "15%",
+            width: '15%',
           },
           {
-            name: "Title",
+            name: 'Title',
             selector: (row) => row.title,
             sortable: true,
-            width: "50%",
+            width: '50%',
           },
           {
-            name: "DeadLine",
-            selector: (row) => moment(row.deadLine).format("YYYY/MM/DD"),
+            name: 'DeadLine',
+            selector: (row) => moment(row.deadLine).format('YYYY/MM/DD'),
             sortable: true,
-            width: "20%",
+            width: '20%',
           },
           {
-            name: "Operation",
+            name: 'Operation',
             selector: (row) => row.id,
             renderCell: (row) => (
               <Flex display="flex" alignItems="center">
                 {!row.finish && (
                   <Spacer pr={0.5}>
                     <ActionButton
-                      icon={"check"}
+                      icon="check"
                       onClick={() => updateTodo({ ...row, finish: true })}
                     >
                       完了
@@ -129,14 +129,14 @@ export const List: React.FunctionComponent<Props> = ({
                   </Spacer>
                 )}
                 <ActionButton
-                  icon={"pencil"}
+                  icon="pencil"
                   onClick={() => history.push(`/detail/${row.id}`)}
                 >
                   詳細
                 </ActionButton>
               </Flex>
             ),
-            width: "25%",
+            width: '25%',
           },
         ]}
       />

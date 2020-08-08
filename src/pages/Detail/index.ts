@@ -1,13 +1,14 @@
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { RouteComponentProps } from "react-router-dom";
-import { Detail as Component } from "./Detail";
-import { deleteTodo } from "../../store/modules/todo/actions";
-import { matchIdTodoSelector } from "../../store/modules/todo/selectors";
-import { RootState } from "../../store";
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { Detail as Component } from './Detail';
+import { deleteTodo } from '../../store/modules/todo/actions';
+import { matchIdTodoSelector } from '../../store/modules/todo/selectors';
+import { RootState } from '../../store';
+import { Domain } from '../../types';
 
 type Props = {
-  todos: Todo[];
+  todos: Domain.Todo[];
 } & RouteComponentProps<{ todoId: string }>;
 
 const mapStateToProps = (state: RootState, props: Props) => {
@@ -24,5 +25,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
 export const DetailView = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Component);
