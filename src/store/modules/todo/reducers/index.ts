@@ -1,5 +1,4 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import moment from 'moment';
 import { addTodo, updateTodo, deleteTodo } from '../actions';
 import { Domain } from '../../../../types';
 
@@ -28,8 +27,7 @@ export const todoReducer = reducerWithInitialState(initialState)
     todos: state.todos.concat({
       id: state.nextId,
       title: payload,
-      deadLine: moment().add('days', 1).toLocaleString(),
-      finish: false,
+      isFinished: false,
     }),
   }))
   .case(updateTodo, (state, payload) => ({

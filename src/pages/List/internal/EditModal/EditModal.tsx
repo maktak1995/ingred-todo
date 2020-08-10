@@ -1,26 +1,34 @@
-import * as React from 'react';
-import { TextField, ConfirmModal } from 'ingred-ui';
+import React, { useState } from 'react';
+import { TextField, ConfirmModal, ToggleButton, Flex } from 'ingred-ui';
 import { useForm } from 'react-hook-form';
+import { Domain } from '../../../../types';
 import * as Styled from './styled';
 
 type Props = {
+  todo: Domain.Todo;
   onClose: () => void;
-  onSubmit?: (title: string) => void;
+  onSubmit?: (todo: Domain.Todo) => void;
 };
 
 type CreateTodoForm = {
   title: string;
 };
 
-export const CreateModal: React.FunctionComponent<Props> = ({
+export const EditModal: React.FunctionComponent<Props> = ({
+  todo,
   onClose,
   onSubmit,
 }) => {
-  const { handleSubmit, register, watch } = useForm<CreateTodoForm>();
+  const [isFinished, setIsFinished] = useState<boolean>(todo.isFinished);
+  const { handleSubmit, register, watch } = useForm<CreateTodoForm>({
+    defaultValues: {
+      title: todo.title,
+    },
+  });
 
   const onHandleSubmit = (data: CreateTodoForm) => {
     if (onSubmit) {
-      onSubmit(data.title);
+      onSubmit({ ...todo, title: data.title, isFinished });
     }
   };
 
@@ -28,7 +36,7 @@ export const CreateModal: React.FunctionComponent<Props> = ({
 
   return (
     <ConfirmModal
-      title="Todoの新規作成"
+      title="Todoの編集"
       confirmText="保存する"
       buttonColor="primary"
       disabled={!watchTodoTitle}
@@ -42,6 +50,15 @@ export const CreateModal: React.FunctionComponent<Props> = ({
             <Styled.TextFieldContainer>
               <TextField inputRef={register({ required: true })} name="title" />
             </Styled.TextFieldContainer>
+          </Styled.FormGroupRight>
+        </Styled.FormGroup>
+        <Styled.FormGroup>
+          <Styled.FormGroupLeft>完了/未完了</Styled.FormGroupLeft>
+          <Styled.FormGroupRight>
+            <ToggleButton
+              active={isFinished}
+              onChange={() => setIsFinished(!isFinished)}
+            />
           </Styled.FormGroupRight>
         </Styled.FormGroup>
       </Styled.FormContainer>

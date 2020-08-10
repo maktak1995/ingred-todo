@@ -1,6 +1,4 @@
-import React from 'react';
-import { default as dayjs } from 'dayjs';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import {
   DataTable,
   Icon,
@@ -9,25 +7,32 @@ import {
   ActionButton,
   Spacer,
 } from 'ingred-ui';
-import { AddPyload, UpdatePyload } from '../../store/modules/todo/actions';
+import {
+  AddPyload,
+  UpdatePyload,
+  DeletePyload,
+} from '../../store/modules/todo/actions';
 import * as Styled from './styled';
 import { CreateModal } from './internal/CreateModal';
+import { EditModal } from './internal/EditModal';
 import { Domain } from '../../types';
 
 type Props = {
   todos: Domain.Todo[];
   updateTodo: (payload: UpdatePyload) => void;
   addTodo: (payload: AddPyload) => void;
+  deleteTodo: (payload: DeletePyload) => void;
 };
 
 export const List: React.FunctionComponent<Props> = ({
   todos,
   updateTodo,
   addTodo,
+  deleteTodo,
 }) => {
   const theme = createTheme();
-  const history = useHistory();
-  const [createModalOpen, setCreateModalOpen] = React.useState(false);
+  const [createModalOpen, setCreateModalOpen] = useState<boolean>(false);
+  const [editModalId, setEditModalId] = useState<number | null>(null);
   const onHandleChangeCreateModalOpen = (isOpen: boolean) => () =>
     setCreateModalOpen(isOpen);
 
@@ -35,6 +40,14 @@ export const List: React.FunctionComponent<Props> = ({
     addTodo(title);
     setCreateModalOpen(false);
   };
+
+  const onHandleEdit = (todo: Domain.Todo) => {
+    updateTodo(todo);
+    setEditModalId(null);
+  };
+
+  const onHandleChangeEditModalId = (id: number | null) => () =>
+    setEditModalId(id);
 
   return (
     <Styled.Container>
@@ -54,42 +67,13 @@ export const List: React.FunctionComponent<Props> = ({
         emptyTitle="TODOがありません。"
         enablePagination
         per={10}
-        tabs={[
-          {
-            label: '全て',
-            filter: (data) => data,
-          },
-          {
-            label: '今日',
-            filter: (data) =>
-              data.filter(
-                (item) =>
-                  dayjs(item.deadLine).format('YYYY/MM/DD') ===
-                  dayjs().format('YYYY/MM/DD'),
-              ),
-          },
-          {
-            label: '今週',
-            filter: (data) =>
-              data.filter(
-                (item) =>
-                  dayjs(item.deadLine) > dayjs() &&
-                  dayjs(item.deadLine) <= dayjs().add(7, 'd'),
-              ),
-          },
-          {
-            label: '期限切れ',
-            filter: (data) =>
-              data.filter((item) => dayjs(item.deadLine) <= dayjs()),
-          },
-        ]}
         data={todos}
         columns={[
           {
             name: 'Status',
-            selector: (row) => row.finish.toString(),
+            selector: (row) => row.isFinished.toString(),
             renderCell: (row) =>
-              row.finish && (
+              row.isFinished && (
                 <Spacer pl={2}>
                   <Icon
                     name="check"
@@ -104,35 +88,44 @@ export const List: React.FunctionComponent<Props> = ({
           {
             name: 'Title',
             selector: (row) => row.title,
+            renderCell: (row) => (
+              <div>
+                <Styled.TitleContainer
+                  onClick={onHandleChangeEditModalId(row.id)}
+                >
+                  {row.title}
+                </Styled.TitleContainer>
+                {editModalId === row.id && (
+                  <EditModal
+                    todo={row}
+                    onClose={onHandleChangeEditModalId(null)}
+                    onSubmit={onHandleEdit}
+                  />
+                )}
+              </div>
+            ),
             sortable: true,
-            width: '50%',
-          },
-          {
-            name: 'DeadLine',
-            selector: (row) => dayjs(row.deadLine).format('YYYY/MM/DD'),
-            sortable: true,
-            width: '20%',
           },
           {
             name: 'Operation',
             selector: (row) => row.id,
             renderCell: (row) => (
               <Flex display="flex" alignItems="center">
-                {!row.finish && (
+                {!row.isFinished && (
                   <Spacer pr={0.5}>
                     <ActionButton
                       icon="check"
-                      onClick={() => updateTodo({ ...row, finish: true })}
+                      onClick={() => updateTodo({ ...row, isFinished: true })}
                     >
                       完了
                     </ActionButton>
                   </Spacer>
                 )}
                 <ActionButton
-                  icon="pencil"
-                  onClick={() => history.push(`/detail/${row.id}`)}
+                  icon="delete_bin"
+                  onClick={() => deleteTodo(row.id)}
                 >
-                  詳細
+                  削除
                 </ActionButton>
               </Flex>
             ),
