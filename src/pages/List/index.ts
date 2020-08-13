@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { List as Component } from './List';
 import {
+  setTodos,
   addTodo,
   updateTodo,
   deleteTodo,
@@ -17,9 +18,10 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
+    setTodos: (todos: Domain.Todo[]) => dispatch(setTodos(todos)),
     addTodo: (title: string) => dispatch(addTodo(title)),
     updateTodo: (todo: Domain.Todo) => dispatch(updateTodo(todo)),
-    deleteTodo: (id: number) => dispatch(deleteTodo(id)),
+    deleteTodo: (id: string) => dispatch(deleteTodo(id)),
   };
 };
 

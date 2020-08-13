@@ -10317,6 +10317,11 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
+
 redux@^4.0.0, redux@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
@@ -11819,6 +11824,14 @@ typescript-fsa-reducers@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/typescript-fsa-reducers/-/typescript-fsa-reducers-1.2.1.tgz#2af1a85f7b88fb0dfb9fa59d5da51a5d7ac6543f"
   integrity sha512-Qgn7zEnAU5n3YEWEL5ooEmIWZl9B4QyXD4Y/0DqpUzF0YuTrcsLa7Lht0gFXZ+xqLJXQwo3fEiTfQTDF1fBnMg==
+
+typescript-fsa-redux-thunk@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/typescript-fsa-redux-thunk/-/typescript-fsa-redux-thunk-2.1.9.tgz#c4e828edafca69625de3d3f6583217bf48cbcfd0"
+  integrity sha512-8SqF3awKrwKc/U/c5Sby/i30w6xTqkdLNdD3JEBzggUYn08BDVu73dHYRktJgp0pOE2DWUL3yajn11T5adLlkw==
+  dependencies:
+    redux-thunk "^2.3.0"
+    typescript-fsa "^3.0.0"
 
 typescript-fsa@^3.0.0:
   version "3.0.0"

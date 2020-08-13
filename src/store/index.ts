@@ -1,7 +1,7 @@
-import { createStore } from 'redux';
+import { createStore, Store, AnyAction } from 'redux';
 import { todoReducer, TodoState } from './modules/todo/reducers';
 
-export function configureStore() {
+export function configureStore(): Store<TodoState, AnyAction> {
   const store = createStore(todoReducer);
 
   store.subscribe(() => {

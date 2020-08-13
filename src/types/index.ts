@@ -1,7 +1,8 @@
 export namespace Domain {
   export type Todo = {
-    id: number;
-    title: string;
-    isFinished: boolean;
+    [key: string]: {
+      title: string;
+      isFinished: boolean;
+    };
   };
 }

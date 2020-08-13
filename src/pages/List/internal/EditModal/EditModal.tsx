@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, ConfirmModal, ToggleButton, Flex } from 'ingred-ui';
+import { TextField, ConfirmModal, ToggleButton } from 'ingred-ui';
 import { useForm } from 'react-hook-form';
 import { Domain } from '../../../../types';
 import * as Styled from './styled';
@@ -19,16 +19,18 @@ export const EditModal: React.FunctionComponent<Props> = ({
   onClose,
   onSubmit,
 }) => {
-  const [isFinished, setIsFinished] = useState<boolean>(todo.isFinished);
+  const [isFinished, setIsFinished] = useState<boolean>(
+    todo[Object.keys(todo)[0]].isFinished,
+  );
   const { handleSubmit, register, watch } = useForm<CreateTodoForm>({
     defaultValues: {
-      title: todo.title,
+      title: todo[Object.keys(todo)[0]].title,
     },
   });
 
   const onHandleSubmit = (data: CreateTodoForm) => {
     if (onSubmit) {
-      onSubmit({ ...todo, title: data.title, isFinished });
+      onSubmit({ [Object.keys(todo)[0]]: { title: data.title, isFinished } });
     }
   };
 
