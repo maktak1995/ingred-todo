@@ -8,12 +8,7 @@ import {
   Spacer,
   Typography,
 } from 'ingred-ui';
-import {
-  SetPyload,
-  AddPyload,
-  UpdatePyload,
-  DeletePyload,
-} from '../../store/modules/todo/actions';
+import { SetPyload } from '../../store/modules/todo/actions';
 import * as Styled from './styled';
 import { CreateModal } from './internal/CreateModal';
 import { EditModal } from './internal/EditModal';
@@ -25,9 +20,6 @@ const ref = firebaseDb.ref('todos');
 type Props = {
   todos: Domain.Todo[];
   setTodos: (payload: SetPyload) => void;
-  updateTodo: (payload: UpdatePyload) => void;
-  addTodo: (payload: AddPyload) => void;
-  deleteTodo: (payload: DeletePyload) => void;
 };
 
 type todoForList = {
@@ -37,13 +29,7 @@ type todoForList = {
   isFinished: boolean;
 };
 
-export const List: React.FunctionComponent<Props> = ({
-  todos,
-  setTodos,
-  updateTodo,
-  addTodo,
-  deleteTodo,
-}) => {
+export const List: React.FunctionComponent<Props> = ({ todos, setTodos }) => {
   const theme = createTheme();
   const [createModalOpen, setCreateModalOpen] = useState<boolean>(false);
   const [listedTodos, setListedTodos] = useState<todoForList[]>([]);
@@ -84,12 +70,19 @@ export const List: React.FunctionComponent<Props> = ({
     setCreateModalOpen(isOpen);
 
   const onHandleCreate = (newTodoTitle: string) => {
-    addTodo(newTodoTitle);
+    ref.push({
+      title: newTodoTitle,
+      isFinished: false,
+    });
     setCreateModalOpen(false);
   };
 
   const onHandleEdit = (todo: Domain.Todo) => {
-    updateTodo(todo);
+    const key = Object.keys(todo)[0];
+    firebaseDb.ref(`todos/${key}`).update({
+      title: todo[key].title,
+      isFinished: todo[key].isFinished,
+    });
     setEditModalId(null);
   };
 
@@ -97,10 +90,14 @@ export const List: React.FunctionComponent<Props> = ({
     setEditModalId(id);
 
   const onHandleUpdateTodo = (rowTodo: todoForList) => {
-    const todo: Domain.Todo = {
-      [rowTodo.key]: { title: rowTodo.title, isFinished: rowTodo.isFinished },
-    };
-    updateTodo(todo);
+    firebaseDb.ref(`todos/${rowTodo.key}`).update({
+      title: rowTodo.title,
+      isFinished: rowTodo.isFinished,
+    });
+  };
+
+  const onHandleDeleteTodo = (key: string) => {
+    firebaseDb.ref(`todos/${key}`).remove();
   };
 
   return (
@@ -173,7 +170,7 @@ export const List: React.FunctionComponent<Props> = ({
                 <Spacer pr={0.5}>
                   <ActionButton
                     icon="delete_bin"
-                    onClick={() => deleteTodo(row.key)}
+                    onClick={() => onHandleDeleteTodo(row.key)}
                   >
                     削除
                   </ActionButton>
