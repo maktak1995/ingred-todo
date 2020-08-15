@@ -25,15 +25,18 @@
     "react-hook-form": "^5.7.2",
     "react-markdown": "^4.3.1",
     "react-redux": "^7.2.0",
+    "react-redux-firebase": "^3.7.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.0",
     "typescript": "~3.7.2",
     "typescript-fsa": "^3.0.0",
-    "typescript-fsa-reducers": "^1.2.1"
+    "typescript-fsa-reducers": "^1.2.1",
+    "typescript-fsa-redux-thunk": "^2.1.9"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
